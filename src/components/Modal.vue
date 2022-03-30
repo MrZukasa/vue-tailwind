@@ -1,9 +1,12 @@
 <template>
-    <div class="backdrop" @click="closeModal">                     <!--adding the event that close the modal on click -->
+    <div class="backdrop" @click.self="closeModal">
+        <!-- aggiungo l'evento che richiama la chiusura della modale al click -->
+        <!-- il metodo .self fa si che l'evento si scateni solo al click del backdrop e non di altri elementi -->
         <div class="modal" :class="{sale:theme==='sale'}">
-            <!-- making a big object where check if the theme value is = "sale" then apply sale style -->
-            <!-- the object is defined as a key:value array where the key is "sale" and the value is the boolean tha come out from the check -->
-            <p class="title">{{header}}</p>                        <!-- this is where our props appear after we popupate it in the main component -->
+            <!-- faccio un oggetto che controlla se il valore di theme è "sale" in caso da applicare lo stile "sale" -->
+            <!-- l'oggetto è definito come un array chiave:valore dove la chiave è "sale" e il valore è un boolean di risposta dal controllo -->
+            <p class="title">{{header}}</p>
+            <!-- qui è dove appare la props dopo averla popolata nel componente principale -->
             <p>{{text}}</p>
         </div>
     </div>
@@ -11,16 +14,16 @@
 
 <script>
 export default {
-    props: ['header','text','theme'],                               //this is how we difine the props
+    props: ['header','text','theme'],                               //cosi è come si definiscono le props
     methods: {
         closeModal(){
-            this.$emit('close')                                    //emit the custom event named close, we trigger this emission when we have the click on the backdrop
+            this.$emit('close')                                    //emit emette l'evento chiamato close, l'evento si innesca quando si clicca sul backdrop
         }
     }
 }
 </script>
 
-<style>                                                            /*in order to use this style only in Modal.vue components we need to declare this as scoped*/
+<style>                                                            /*per usare questo stile solo nel componente Modal.vue dobbiamo dichiararlo come scoped*/
 .modal{
     @apply w-96 p-5 mt-44 mx-auto bg-white rounded-lg
 }
@@ -29,7 +32,7 @@ export default {
     @apply top-0 fixed bg-zinc-600/50 w-full h-full
 }
 
-.modal .title {                                                    /*this is the style that can be overwrite if we miss the scope or the .modal*/
+.modal .title {                                                    /*questo è lo stile che può venire sovrascritto se non mettiamo lo scope o il .modal*/
     @apply border-b-2 block pb-2.5 text-4xl text-emerald-500
 }
 

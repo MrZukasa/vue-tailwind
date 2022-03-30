@@ -1,36 +1,38 @@
 <template>
-  <span class="title">{{ title }}</span>                              <!-- in order to use the component with some style i need to create a class with tailwind-->
+  <span class="title">{{ title }}</span>                              <!-- per usare il componente con dello stile devo creare una classe con tailwind-->
   <input class="inputText focus:outline-none focus:bg-white focus:border-purple-500" type="text" ref="name">
-  <button @click="handleClick" class="btn ml-2 hover:bg-purple-400 focus:shadow-outline focus:outline-none">click me</button>  
+  <button @click="handleClick" class="btn ml-2 hover:bg-purple-400 focus:shadow-outline focus:outline-none">click me</button>
   <div v-if="showModal">
-    <Modal :header="header" :text="text" theme="sale"></Modal>                          <!-- this is where we use our props -->
-    <!-- by v-bind this props we can populate that in the data section, otherwise we need to use those as a string -->
+    <Modal :header="header" :text="text" :theme="color" @close="toggleModal"></Modal>                          <!-- qui è dove uso le props -->
+    <!-- con il v-bind posso usare queste proprietà popolandole nella sezione data(), altrimenti sarebbero stringhe normali -->
   </div>
   <br>
   <button @click="toggleModal" class="btn mt-2 hover:bg-purple-400 focus:shadow-outline focus:outline-none">Show Modal</button>  
 </template> 
 
 <script>
-import Modal from './components/Modal.vue'                             //import the component that we just made
+import Modal from './components/Modal.vue'                             //importo il componente che ho fatto
 
 export default {
   name: 'App',
-  components: { Modal },                                               //also register the components here
+  components: { Modal },                                               //qui si registrano i componenti
   data() {
     return {
-      title: "This is the title of the component",                     //this is the first component that we want to use
+      title: "This is the title of the component",                     //questo è il primo componente che uso
       header: "Modal Title",                                           //databind
       text: "Modal Content",
-      showModal: false
+      showModal: false,
+      color: "sale"
     }
   },
   methods: {
     handleClick(){
-      console.log(this.$refs.name.value)                              //this is the method that we want to use in our button in order to trigger the event      
+      console.log(this.$refs.name.value)                              //questo è il metodo che uso nel bottone per far partire l'evento
     },
     toggleModal(){
       this.showModal = !this.showModal
-    }
+      this.color = this.$refs.name.value                              //se scrivo "sale" cambia il tema di colori della modal 
+    },      
   }
 }
 </script>
