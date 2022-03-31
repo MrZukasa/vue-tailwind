@@ -1,7 +1,20 @@
-body {
-    @apply m-0
+#app{
+    @apply mt-7 text-center font-sans
 }
-
-p{
-    @apply italic
+.btn {
+  @apply transition ease-in-out shadow bg-blue-500 duration-300 hover:bg-blue-400 
+  text-white font-bold py-2 px-4 rounded-lg hover:-translate-y-1 hover:scale-125 
+  hover:shadow-slate-600
+}
+.title {
+  @apply block pb-2.5 text-4xl  
+}
+.blocco{
+  @apply w-96 border rounded-3xl bg-amber-600 text-white text-center p-24 m-10 shadow
+}
+.punteggio{
+  @apply italic transition-transform hover:scale-125 hover:translate-y-2
+}
+.voto{
+  @apply italic text-emerald-600 text-2xl animate-ping mt-5
 }

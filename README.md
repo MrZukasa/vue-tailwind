@@ -61,7 +61,7 @@ npm run build
 ## Status Tutorial 🤓
 
 #### Attualmente ho visto:
-
+> Branch Main
 - Struttura di un file.vue
 - Props
 - Slot e Template
@@ -69,3 +69,7 @@ npm run build
 - Event Modifiers
 - Emissione evento custom (Emit)
 - Teleport
+  
+> Branch Timer
+- Lifecycle Hooks
+- Eventi Custom con Dati
