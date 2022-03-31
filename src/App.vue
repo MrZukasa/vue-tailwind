@@ -1,43 +1,77 @@
 <template>
-  <span class="title">{{ title }}</span>                              <!-- per usare il componente con dello stile devo creare una classe con tailwind-->
-  <input class="inputText focus:outline-none focus:bg-white focus:border-purple-500" type="text" ref="name">
-  <button @click="handleClick" class="btn ml-2 hover:bg-purple-400 focus:shadow-outline focus:outline-none">click me</button>
-  <div v-if="showModal">
-    <Modal :header="header" :text="text" :theme="color" @close="toggleModal"></Modal>                          <!-- qui è dove uso le props -->
-    <!-- con il v-bind posso usare queste proprietà popolandole nella sezione data(), altrimenti sarebbero stringhe normali -->
+
+  <div class="darkmode_icon" @click="toggledarkmode">
+    <svg xmlns="http://www.w3.org/2000/svg" ref="moon" class="h-7 w-7" :fill="filled" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg>
   </div>
-  <br>
+
+  <span class="title">{{ title }}</span>
+
+  <teleport to=".modals" v-if="showModal">
+    <Modal :theme="color" @close="toggleModal">                 
+      <p class="title">Titolo della Modale</p>
+      <p>Testo della Modale</p>
+      <template v-slot:links>
+        <a href="#">Link 1</a>      
+        <a href="#">Link 2</a>
+      </template>
+    </Modal>
+  </teleport>
+
+  <div v-if="showModal2">
+    <Modal :theme="color" @close="toggleModal2">                 
+      <p class="title">Titolo della seconda Modale</p>
+      <p class="mt-3">Testo della seconda Modale</p>      
+    </Modal>
+  </div>
+
+  <p class="mt-3 text-xl ">Welcome!</p>
+  
   <button @click="toggleModal" class="btn mt-2 hover:bg-purple-400 focus:shadow-outline focus:outline-none">Show Modal</button>  
+  <button @click="toggleModal2" class="btn mt-2 hover:bg-purple-400 focus:shadow-outline focus:outline-none ml-8">Show Modal 2</button>  
+
 </template> 
 
 <script>
-import Modal from './components/Modal.vue'                             //importo il componente che ho fatto
+import Modal from './components/Modal.vue'                             
 
 export default {
   name: 'App',
-  components: { Modal },                                               //qui si registrano i componenti
+  components: { Modal },                                               
   data() {
     return {
-      title: "This is the title of the component",                     //questo è il primo componente che uso
-      header: "Modal Title",                                           //databind
-      text: "Modal Content",
+      title: "Titolo del Componente",
       showModal: false,
-      color: "sale"
+      showModal2: false,
+      color: "light",
+      filled: "none"
     }
   },
   methods: {
-    handleClick(){
-      console.log(this.$refs.name.value)                              //questo è il metodo che uso nel bottone per far partire l'evento
-    },
     toggleModal(){
-      this.showModal = !this.showModal
-      this.color = this.$refs.name.value                              //se scrivo "sale" cambia il tema di colori della modal 
-    },      
+      this.showModal = !this.showModal      
+    },
+    toggleModal2(){
+      this.showModal2 = !this.showModal2      
+    },
+    toggledarkmode(){
+      if (this.color == "dark"){
+        this.color = "light"
+        this.filled="none"
+      }else{
+        this.color = "dark"
+        this.filled="currentColor"
+      }      
+    }
   }
 }
 </script>
 
 <style>
+.darkmode_icon{
+  @apply flex justify-end cursor-pointer mr-6
+}
 .title {
   @apply border-b-2 block pb-2.5 text-4xl  
 }
@@ -50,7 +84,7 @@ export default {
   @apply shadow bg-purple-500 text-white font-bold py-2 px-4 rounded
 }
 
-#app {
+#app, .modals {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
