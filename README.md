@@ -76,3 +76,11 @@ npm run build
 
 > Branch Forms
 - Form e Input
+- Two-Way Data Binding
+- Select Boxes
+- Checkboxes
+- Keyboard Events
+- Keyboard Events Modifiers
+- v-for
+- Submitting Forms
+- Validation
